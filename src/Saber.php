@@ -612,7 +612,8 @@ class Saber
         }
 
         // XXX: this does not seam right
-        $buffer = $options['data']  ? new BufferStream((string)$options['data']) : null;
+        // $buffer = $options['data']  ? new BufferStream((string)$options['data']) : null;
+        $buffer = new BufferStream();
         if (isset($buffer)) {
             $request->withBody($buffer);
         }
