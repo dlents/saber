@@ -123,10 +123,10 @@ class SaberGM
     {
         if ($options === null) {
             return Saber::getDefaultOptions();
-        } else {
-            Saber::setDefaultOptions($options); //global
-            self::getDefaultClient()->setOptions($options);
         }
+
+        Saber::setDefaultOptions($options); //global
+        self::getDefaultClient()->setOptions($options);
 
         return null;
     }
@@ -135,9 +135,9 @@ class SaberGM
     {
         if ($level === null) {
             return self::default()['exception_report'];
-        } else {
-            self::default(['exception_report' => $level]);
         }
+
+        self::default(['exception_report' => $level]);
 
         return null;
     }
