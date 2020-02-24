@@ -417,8 +417,7 @@ class Saber
         return self::$default_options;
     }
 
-    public static function setDefaultOptions(array $options = [])
-    {
+    public static function setDefaultOptions(array $options = []): void {
         if (empty($options)) {
             return;
         }
@@ -427,8 +426,7 @@ class Saber
         self::$default_template_request = null;
     }
 
-    private static function transAlias(array &$options, array $aliasMap, int $aliasMapLength = 0)
-    {
+    private static function transAlias(array &$options, array $aliasMap, int $aliasMapLength = 0): void {
         if (!$aliasMapLength) {
             $aliasMapLength = count($aliasMap);
         }
@@ -448,8 +446,7 @@ class Saber
         }
     }
 
-    private static function transOptionsToRequest(array $options, Request $request)
-    {
+    private static function transOptionsToRequest(array $options, Request $request): void {
         if (empty($options)) {
             return;
         }
@@ -613,7 +610,9 @@ class Saber
         } else {
             $options['data'] = null;
         }
-        $buffer = $options['data'] ? new BufferStream((string)$options['data']) : null;
+
+        // XXX: this does not seam right
+        $buffer = $options['data']  ? new BufferStream((string)$options['data']) : null;
         if (isset($buffer)) {
             $request->withBody($buffer);
         }

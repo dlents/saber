@@ -38,7 +38,8 @@
     "require":           {
         "php":           ">=7.1",
         "dlents/swhttp": "dev-master",
-        "swlib/util":    "dev-master"
+        "swlib/util":    "dev-master",
+        "ext-json":      "*"
     },
     "require-dev":       {
         "phpunit/phpunit":           "~7",
