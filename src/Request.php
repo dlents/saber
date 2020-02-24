@@ -116,8 +116,7 @@ class Request extends \Swlib\Http\Request
         return $this->_status === self::STATUS_WAITING;
     }
 
-    protected function initBasicAuth()
-    {
+    protected function initBasicAuth(): void {
         $userInfo = $this->getUri()->getUserInfo();
         if($userInfo) {
             $userInfo = explode(':', $userInfo);
@@ -140,8 +139,7 @@ class Request extends \Swlib\Http\Request
         return ['host' => $host, 'port' => $port, 'ssl' => $ssl];
     }
 
-    public function shouldRecycleClient($client)
-    {
+    public function shouldRecycleClient($client): bool {
         $connectionInfo = $this->getConnectionTarget();
 
         return (!$client || ($client->host !== $connectionInfo['host'] || $client->port !== $connectionInfo['port']));
@@ -173,8 +171,7 @@ class Request extends \Swlib\Http\Request
         return $this;
     }
 
-    public function tryToRevertClientToPool(bool $connect_failed = false)
-    {
+    public function tryToRevertClientToPool(bool $connect_failed = false): void {
         if ($this->use_pool) {
             $client_pool = ClientPool::getInstance();
             // revert the client to the pool
