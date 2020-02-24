@@ -322,7 +322,13 @@ class Saber
 
     /******************************************************************************
      *                             Special Methods                                *
-     ******************************************************************************/
+     *****************************************************************************
+     */
+
+    /**
+     * @param array $options
+     * @return \Swlib\Saber\Request
+     */
 
     public function psr(array $options = []): Request
     {
@@ -339,7 +345,13 @@ class Saber
 
     /******************************************************************************
      *                             Options Methods                                *
-     ******************************************************************************/
+     *****************************************************************************
+     */
+
+    /**
+     * @param int|null $level
+     * @return int|null
+     */
 
     public function exceptionReport(?int $level = null): ?int
     {
@@ -611,7 +623,7 @@ class Saber
             $options['data'] = null;
         }
 
-        // XXX: this does not seam right
+        // XXX: this does not seem right
         // $buffer = $options['data']  ? new BufferStream((string)$options['data']) : null;
         $buffer = new BufferStream();
         if (isset($buffer)) {
@@ -629,7 +641,7 @@ class Saber
 
         if (array_key_exists('iconv', $options)) {
             if (is_array($options['iconv'])) {
-                $options['iconv'] = $options['iconv'] + self::$default_options['iconv'];
+                $options['iconv'] += self::$default_options['iconv'];
                 $request->withExpectCharset(...$options['iconv']);
             } else {
                 $request->withAutoIconv($options['iconv'] !== false);

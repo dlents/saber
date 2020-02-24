@@ -24,7 +24,7 @@ class SaberGM
         return self::getDefaultClient()->psr($options);
     }
 
-    /** @return \Swlib\Saber\Saber */
+    /** @return \Swlib\Saber */
     public static function wait(): Saber
     {
         return self::getDefaultClient()->wait();
@@ -37,6 +37,9 @@ class SaberGM
     /**
      * Note: Swoole <=4 doesn't support use coroutine in magic methods now
      * To be on the safe side, we removed __call and __callStatic instead of handwriting
+     *
+     * @param array $options
+     * @return \Swlib\Saber\Request|\Swlib\Saber\Response
      */
 
     public static function request(array $options = [])
@@ -84,20 +87,27 @@ class SaberGM
         return self::getDefaultClient()->download($uri, $dir, $offset, $options);
     }
 
-    /** @return Saber\Response[]|ResponseMap */
+    /**
+     * @param array $requests
+     * @param array $default_options
+     * @return Saber\Response[]|ResponseMap
+     */
     public static function requests(array $requests, array $default_options = []): ResponseMap
     {
         return self::getDefaultClient()->requests($requests, $default_options);
     }
 
-    /** @return Saber\Response[]|ResponseMap */
+    /**
+     * @param array $options
+     * @param array $default_options
+     * @return Saber\Response[]|ResponseMap
+     */
     public static function list(array $options, array $default_options = []): ResponseMap
     {
         return self::getDefaultClient()->list($options, $default_options);
     }
 
-    public static function websocket(string $uri)
-    {
+    public static function websocket(string $uri): Saber\WebSocket {
         return self::getDefaultClient()->websocket($uri);
     }
 
@@ -105,6 +115,10 @@ class SaberGM
      *                             Global Options                                 *
      ******************************************************************************/
 
+    /**
+     * @param array|null $options
+     * @return array|null
+     */
     public static function default(array $options = null): ?array
     {
         if ($options === null) {
