@@ -11,3 +11,5 @@ temp/
 /tools
 /debug
 .phpunit.*
+/.idea
+*.iml
