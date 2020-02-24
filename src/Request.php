@@ -293,8 +293,7 @@ class Request extends \Swlib\Http\Request
         }
     }
 
-    public function withXHR(bool $enable = true)
-    {
+    public function withXHR(bool $enable = true): Request {
         return $this->withHeader('X-Requested-With', $enable ? 'XMLHttpRequest' : null);
     }
 
