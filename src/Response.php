@@ -9,21 +9,24 @@ namespace Swlib\Saber;
 
 use Swlib\Http\BufferStream;
 use Swlib\Http\CookiesManagerTrait;
+use Swlib\Util\StringDataParserTrait;
 use Swlib\Http\Exception\BadResponseException;
 use Swlib\Http\Exception\ClientException;
 use Swlib\Http\Exception\HttpExceptionMask;
 use Swlib\Http\Exception\ServerException;
 use Swlib\Http\Exception\TooManyRedirectsException;
 use Swlib\Http\Exception\TransferException;
-use Swlib\Http\StreamInterface;
-use Swlib\Util\StringDataParserTrait;
+// use Swlib\Http\StreamInterface;
+use Psr\Http\Message\StreamInterface;
 use Swlib\Util\SpecialMarkTrait;
 
 class Response extends \Swlib\Http\Response
 {
     /** @var array */
     protected $redirect_headers = [];
-    /** @var TransferException */
+    /** @var
+     * TransferException
+     */
     protected $exception = null;
     /** @var bool */
     protected $success = false;
@@ -49,7 +52,7 @@ class Response extends \Swlib\Http\Response
     use StringDataParserTrait;
 
     /** @noinspection PhpMissingParentConstructorInspection */
-    function __construct(Request $request)
+    public function __construct(Request $request)
     {
         /** consuming time */
         $this->time = $request->_time;
@@ -93,7 +96,7 @@ class Response extends \Swlib\Http\Response
             $body = '';
         }
 
-        $this->withBody(new BufferStream($body));
+        $this->withBody(new BufferStream());
 
         /** data parser */
         $this->__stringDataParserInitialization($this->body);

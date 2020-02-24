@@ -13,7 +13,8 @@ use Swlib\Http\Cookies;
 use Swlib\Http\CookiesManagerTrait;
 use Swlib\Http\Exception\ConnectException;
 use Swlib\Http\Exception\HttpExceptionMask;
-use Swlib\Http\StreamInterface;
+// use Swlib\Http\Stream;
+use Psr\Http\Message\StreamInterface;
 use Swlib\Http\SwUploadFile;
 use Swlib\Http\Uri;
 use Swlib\Util\InterceptorTrait;
@@ -92,7 +93,7 @@ class Request extends \Swlib\Http\Request
 
     use SpecialMarkTrait;
 
-    function __construct(string $method = 'GET', $uri = '', array $headers = [], ?StreamInterface $body = null)
+    public function __construct(string $method = 'GET', $uri = '', array $headers = [], ?StreamInterface $body = null)
     {
         parent::__construct($method, $uri, $headers, $body);
         $this->__cookiesInitialization(true);
@@ -727,11 +728,11 @@ class Request extends \Swlib\Http\Request
                 }
 
                 return $this->recv();
-            } else {
-                $this->setExceptionReport(
-                    $this->getExceptionReport() ^ HttpExceptionMask::E_REDIRECT
-                );
             }
+
+            $this->setExceptionReport(
+                $this->getExceptionReport() ^ HttpExceptionMask::E_REDIRECT
+            );
         }
 
         /** create response object */
@@ -764,6 +765,7 @@ class Request extends \Swlib\Http\Request
             $this->client->set_cookie_headers = [];
             $this->client->cookies = [];
         }
+
         $this->client->body = '';
 
         if($this->use_pool){
