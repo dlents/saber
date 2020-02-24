@@ -95,12 +95,14 @@ class Response extends \Swlib\Http\Response
         } else {
             $body = '';
         }
+        // DLents
+        $bBuffer = new BufferStream();
+        $bBuffer->write($body);
+        $this->withBody($bBuffer);
 
-        $this->withBody(new BufferStream());
-
-        /** data parser */
+        // data parser
         $this->__stringDataParserInitialization($this->body);
-        /** mark */
+        // mark
         $this->special_marks = $request->special_marks;
 
         $e_level = $request->getExceptionReport();
@@ -132,9 +134,9 @@ class Response extends \Swlib\Http\Response
             if ($should_be_thrown && !$ret) {
                 $request->tryToRevertClientToPool();
                 throw $exception;
-            } else {
-                $this->exception = $exception;
             }
+
+            $this->exception = $exception;
         }
     }
 
