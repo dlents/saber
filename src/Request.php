@@ -145,8 +145,7 @@ class Request extends \Swlib\Http\Request
         return (!$client || ($client->host !== $connectionInfo['host'] || $client->port !== $connectionInfo['port']));
     }
     /** @return null|bool */
-    public function getPool()
-    {
+    public function getPool(): ?bool {
         return $this->use_pool;
     }
 
